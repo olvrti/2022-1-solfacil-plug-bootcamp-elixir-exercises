@@ -13,13 +13,27 @@ defmodule DndCharacter do
 
   @spec modifier(pos_integer()) :: integer()
   def modifier(score) do
+    ((score - 10) / 2)
+    |> floor()
   end
 
   @spec ability :: pos_integer()
   def ability do
+    Enum.random(3..18)
   end
 
   @spec character :: t()
   def character do
+    constitution = ability()
+
+    %__MODULE__{
+      strength: ability(),
+      dexterity: ability(),
+      constitution: constitution,
+      intelligence: ability(),
+      wisdom: ability(),
+      charisma: ability(),
+      hitpoints: modifier(constitution) + 10
+    }
   end
 end
